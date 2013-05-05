@@ -38,7 +38,10 @@ def block_ips(ips):
             rule = Rule(source=ip, jump='DROP')
             table = Table('filter')
             table.append_rule('INPUT', rule)
+    print "Done processing (blocked %d suspicious IP addresses)" % len(ips)
 
 if __name__=="__main__":
+    if (config.selectors["failurelimit"] < 5):
+        raise Exception("failurelimit in config.py should be 5 or greater to avoid locking out legitimate users.")
     conn = psycopg2.connect(host = config.db_host, database = config.db_name, user = config.db_username, password = config.db_pw)
     block_ips(get_offending_ips(conn, config.selectors))
