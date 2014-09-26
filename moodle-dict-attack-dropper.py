@@ -1,6 +1,8 @@
 #!/usr/bin/python
-# Detect dictionary attacks against Moodle and drop packets from the perpetrators' IP addresses.
-# netfilter dependency: The 'iptables' executable must be in the search $PATH.
+# Detects dictionary attacks against Moodle and drops packets from the perpetrators' IP addresses.
+# Dependencies:
+#   * netfilter: The 'iptables' executable must be in the search $PATH.
+#   * PostgresSQL DB (the query below was written for postgres)
 
 from netfilter.rule import Rule
 from netfilter.table import Table
